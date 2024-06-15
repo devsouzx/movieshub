@@ -37,7 +37,6 @@ public class TestConfig implements CommandLineRunner {
                 "O Senhor dos Anéis: A Sociedade do Anel",
                 "Um hobbit é chamado para uma aventura épica para destruir o Um Anel.",
                 "Peter Jackson",
-                new Date(),
                 new Date(2001, 12, 19),
                 178,
                 new ArrayList<>(List.of("Fantasia", "Aventura"))
@@ -48,7 +47,6 @@ public class TestConfig implements CommandLineRunner {
                 "O Poderoso Chefão",
                 "A história da família Corleone, um império do crime organizado.",
                 "Francis Ford Coppola",
-                new Date(),
                 new Date(1972, 3, 14),
                 175,
                 new ArrayList<>(List.of("Drama", "Crime"))
@@ -59,7 +57,6 @@ public class TestConfig implements CommandLineRunner {
                 "Pulp Fiction",
                 "Uma série de histórias interligadas que se passa no submundo de Los Angeles.",
                 "Quentin Tarantino",
-                new Date(),
                 new Date(1994, 10, 14),
                 154,
                 new ArrayList<>(List.of("Crime", "Drama"))

@@ -1,15 +1,14 @@
 package com.devsouzx.movieshub.resources;
 
 import com.devsouzx.movieshub.domain.Movie;
-import com.devsouzx.movieshub.domain.User;
+import com.devsouzx.movieshub.dto.MovieDTO;
 import com.devsouzx.movieshub.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,5 +27,13 @@ public class MovieResource {
     public ResponseEntity<Movie> findUser(@PathVariable String id) {
         Movie movie = movieService.findById(id);
         return ResponseEntity.ok(movie);
+    }
+
+    @PostMapping
+    public ResponseEntity<Movie> insert(@RequestBody MovieDTO movieDTO, UriComponentsBuilder uriComponentsBuilder) {
+        Movie movie = movieService.fromDTO(movieDTO);
+        movie = movieService.insert(movie);
+        URI uri = uriComponentsBuilder.path("/{id}").buildAndExpand(movie.getId()).toUri();
+        return ResponseEntity.created(uri).body(movie);
     }
 }

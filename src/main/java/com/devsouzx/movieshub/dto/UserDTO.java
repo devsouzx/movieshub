@@ -4,6 +4,7 @@ import com.devsouzx.movieshub.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class UserDTO implements Serializable {
+    @Id
     private String id;
     private String name;
     private String email;

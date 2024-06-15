@@ -2,6 +2,8 @@ package com.devsouzx.movieshub.services;
 
 import com.devsouzx.movieshub.domain.Movie;
 import com.devsouzx.movieshub.domain.User;
+import com.devsouzx.movieshub.dto.MovieDTO;
+import com.devsouzx.movieshub.dto.UserDTO;
 import com.devsouzx.movieshub.repositories.MovieRepository;
 import com.devsouzx.movieshub.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +24,13 @@ public class MovieService {
     public Movie findById(String id) {
         Optional<Movie> movie = movieRepository.findById(id);
         return movie.orElseThrow(() -> new ObjectNotFoundException("Movie not Found"));
+    }
+
+    public Movie insert(Movie movie) {
+        return movieRepository.save(movie);
+    }
+
+    public Movie fromDTO(MovieDTO movieDTO) {
+        return new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getDescription(), movieDTO.getDirector(), movieDTO.getReleaseDate(), movieDTO.getRuntime(), movieDTO.getGenders());
     }
 }

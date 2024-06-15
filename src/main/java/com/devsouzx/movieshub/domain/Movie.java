@@ -20,7 +20,6 @@ public class Movie {
     private String title;
     private String description;
     private String director;
-    private Date watchDate;
     private Date releaseDate;
     private Integer runtime;
     private List<String> genders = new ArrayList<>();
