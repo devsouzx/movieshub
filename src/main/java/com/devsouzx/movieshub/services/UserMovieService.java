@@ -12,9 +12,9 @@ public class UserMovieService {
     @Autowired
     private UserMovieRepository userMovieRepository;
 
-    public void addMovieToUser(String userId, String movieId) {
+    public UserMovie addMovieToUser(String userId, String movieId) {
         UserMovie userMovie = new UserMovie(userId, movieId);
-        userMovieRepository.save(userMovie);
+        return userMovieRepository.save(userMovie);
     }
 
     public List<UserMovie> findByUserId(String id) {

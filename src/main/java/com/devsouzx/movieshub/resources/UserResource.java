@@ -60,6 +60,13 @@ public class UserResource {
         return ResponseEntity.created(uri).body(user);
     }
 
+    @PostMapping("/{id}/movies/{movieId}")
+    public ResponseEntity<Void> insert(@PathVariable String id, @PathVariable String movieId,UriComponentsBuilder uriComponentsBuilder) {
+        UserMovie userMovie = userMovieService.addMovieToUser(id, movieId);
+        URI uri = uriComponentsBuilder.path("/{id}").buildAndExpand(userMovie.getUserId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         userService.delete(id);
