@@ -1,6 +1,7 @@
 package com.devsouzx.movieshub.resources;
 
 import com.devsouzx.movieshub.domain.Movie;
+import com.devsouzx.movieshub.domain.User;
 import com.devsouzx.movieshub.dto.MovieDTO;
 import com.devsouzx.movieshub.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,11 @@ public class MovieResource {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         movieService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Movie> update(@PathVariable String id, @RequestBody Movie movie) {
+        movie = movieService.update(id, movie);
+        return ResponseEntity.ok(movie);
     }
 }

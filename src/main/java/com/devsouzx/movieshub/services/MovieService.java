@@ -37,4 +37,19 @@ public class MovieService {
     public void delete(String id) {
         movieRepository.delete(findById(id));
     }
+
+    public Movie update(String id, Movie movie) {
+        Movie entity = findById(id);
+        updateData(entity, movie);
+        return movieRepository.save(entity);
+    }
+
+    public void updateData(Movie entity, Movie movie) {
+        entity.setTitle(movie.getTitle());
+        entity.setDescription(movie.getDescription());
+        entity.setDirector(movie.getDirector());
+        entity.setReleaseDate(movie.getReleaseDate());
+        entity.setRuntime(movie.getRuntime());
+        entity.setGenders(movie.getGenders());
+    }
 }
