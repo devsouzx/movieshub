@@ -5,7 +5,6 @@ import com.devsouzx.movieshub.dto.UserDTO;
 import com.devsouzx.movieshub.repositories.UserRepository;
 import com.devsouzx.movieshub.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.objenesis.ObjenesisException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +34,16 @@ public class UserService {
 
     public void delete(String id) {
         userRepository.delete(findById(id));
+    }
+
+    public User update(String id, User user) {
+        User entity = findById(id);
+        updateData(entity, user);
+        return userRepository.save(entity);
+    }
+
+    public void updateData(User entity, User user) {
+        entity.setName(user.getName());
+        entity.setEmail(user.getEmail());
     }
 }
