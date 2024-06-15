@@ -33,4 +33,8 @@ public class MovieService {
     public Movie fromDTO(MovieDTO movieDTO) {
         return new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getDescription(), movieDTO.getDirector(), movieDTO.getReleaseDate(), movieDTO.getRuntime(), movieDTO.getGenders());
     }
+
+    public void delete(String id) {
+        movieRepository.delete(findById(id));
+    }
 }

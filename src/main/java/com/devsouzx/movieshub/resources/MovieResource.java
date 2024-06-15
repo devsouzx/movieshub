@@ -36,4 +36,10 @@ public class MovieResource {
         URI uri = uriComponentsBuilder.path("/{id}").buildAndExpand(movie.getId()).toUri();
         return ResponseEntity.created(uri).body(movie);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        movieService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
