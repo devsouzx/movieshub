@@ -2,16 +2,16 @@ package com.devsouzx.movieshub.config;
 
 import com.devsouzx.movieshub.domain.Movie;
 import com.devsouzx.movieshub.domain.User;
+import com.devsouzx.movieshub.domain.UserMovie;
 import com.devsouzx.movieshub.repositories.MovieRepository;
+import com.devsouzx.movieshub.repositories.UserMovieRepository;
 import com.devsouzx.movieshub.repositories.UserRepository;
+import com.devsouzx.movieshub.services.UserMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Configuration
 public class TestConfig implements CommandLineRunner {
@@ -21,10 +21,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private UserMovieRepository userMovieRepository;
+
+    @Autowired
+    private UserMovieService userMovieService;
+
     @Override
     public void run(String... args) throws Exception {
         userRepository.deleteAll();
         movieRepository.deleteAll();
+        userMovieRepository.deleteAll();
 
         User dallyla = new User(null, "Dallyla Lima", "dallyla@gmail.com");
         User camilly = new User(null, "Camilly Victoria", "camilly@gmail.com");
@@ -63,5 +70,7 @@ public class TestConfig implements CommandLineRunner {
         );
 
         movieRepository.saveAll(Arrays.asList(movie1, movie2, movie3));
+
+        userMovieService.addMovieToUser(dallyla.getId(), movie1.getId());
     }
 }

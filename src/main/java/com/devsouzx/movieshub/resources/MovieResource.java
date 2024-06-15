@@ -1,7 +1,6 @@
 package com.devsouzx.movieshub.resources;
 
 import com.devsouzx.movieshub.domain.Movie;
-import com.devsouzx.movieshub.domain.User;
 import com.devsouzx.movieshub.dto.MovieDTO;
 import com.devsouzx.movieshub.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
