@@ -26,12 +26,23 @@ public class MovieService {
         return movie.orElseThrow(() -> new ObjectNotFoundException("Movie not Found"));
     }
 
+    public List<Movie> findByIds(List<String> movieIds) {
+        return movieIds.stream()
+                .map(movieRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get).toList();
+    }
+
     public Movie insert(Movie movie) {
         return movieRepository.save(movie);
     }
 
     public Movie fromDTO(MovieDTO movieDTO) {
         return new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getDescription(), movieDTO.getDirector(), movieDTO.getReleaseDate(), movieDTO.getRuntime(), movieDTO.getGenders());
+    }
+
+    public MovieDTO convertToMovieDTO(Movie movie) {
+        return new MovieDTO(movie);
     }
 
     public void delete(String id) {

@@ -3,6 +3,7 @@ package com.devsouzx.movieshub.resources;
 import com.devsouzx.movieshub.domain.Movie;
 import com.devsouzx.movieshub.domain.User;
 import com.devsouzx.movieshub.domain.UserMovie;
+import com.devsouzx.movieshub.dto.MovieDTO;
 import com.devsouzx.movieshub.dto.UserDTO;
 import com.devsouzx.movieshub.repositories.UserMovieRepository;
 import com.devsouzx.movieshub.services.MovieService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -43,13 +45,26 @@ public class UserResource {
     }
 
     @GetMapping("/{id}/movies")
-    public ResponseEntity<List<Movie>> findMovies(@PathVariable String id) {
+    public ResponseEntity<List<MovieDTO>> findMovies(@PathVariable String id) {
         List<UserMovie> userMovies = userMovieService.findByUserId(id);
-        List<Movie> movies = userMovies.stream()
-                .map(userMovie -> movieService.findById(userMovie.getMovieId()))
-                .filter(Objects::nonNull)
-                .toList();
-        return ResponseEntity.ok(movies);
+        List<String> movieIds = userMovies.stream().map(UserMovie::getMovieId).toList();
+        List<Movie> movies = movieService.findByIds(movieIds);
+
+        List<MovieDTO> movieDTOs = movies.stream()
+                .map(movie -> {
+                    UserMovie userMovie = userMovies.stream()
+                            .filter(one -> one.getMovieId().equals(movie.getId()))
+                            .findFirst()
+                            .orElse(null);
+
+                    MovieDTO movieDTO = movieService.convertToMovieDTO(movie);
+                    if (userMovie != null) {
+                        movieDTO.setWatchedDate(userMovie.getWatchedDate());
+                    }
+                    return movieDTO;
+                }).toList();
+
+        return ResponseEntity.ok(movieDTOs);
     }
 
     @PostMapping

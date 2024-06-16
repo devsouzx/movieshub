@@ -22,6 +22,7 @@ public class MovieDTO implements Serializable {
     private String description;
     private String director;
     private Date releaseDate;
+    private Date watchedDate;
     private Integer runtime;
     private List<String> genders = new ArrayList<>();
 
